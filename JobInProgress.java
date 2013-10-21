@@ -557,6 +557,12 @@ public class JobInProgress {
     }
     // Added by RH at Oct 19th, 2013 begin
     LOG.info("totalDegradedMapTasks:"+totalDegradedMapTasks());
+    //Iterator it = cache.entrySet().iterator();
+    //while(it.hasNext()){
+    //    Map.Entry pairs = (Map.Entry)it.next();
+    //    LOG.info(pairs.getKey());
+    //    it.remove();
+    //}
     // Added by RH at Oct 19th, 2013 end
     return cache;
   }
@@ -1431,6 +1437,9 @@ public class JobInProgress {
       if(totalDegradedMapTasks==0){ 
           return false;
       }
+      if(launchedDegradedMapTasks>=totalDegradedMapTasks){ 
+          return false;
+      }
       double totalLaunchPercent=(double)(runningMapTasks+finishedMapTasks)/numMapTasks;
       double degradedLaunchPercent=(double)launchedDegradedMapTasks/totalDegradedMapTasks;
       //LOG.info("totalLaunchPercent:"+totalLaunchPercent+",degradedLaunchPercent"+
@@ -1440,14 +1449,15 @@ public class JobInProgress {
       }
       double averageMapLeft=(double)(numMapTasks-totalDegradedMapTasks+launchedDegradedMapTasks
               -runningMapTasks-finishedMapTasks)/
-          nonRunningMapCache.size();
+          (nonRunningMapCache.size()-1);
       String taskTrackerHost = tts.getHost();
       Node node = jobtracker.getNode(taskTrackerHost);
       int unlaunched = nonRunningMapCache.get(node).size();
-      if((double)unlaunched-averageMapLeft>0){
+      LOG.info("shouldAssignDegradedTask()"+unlaunched+","+averageMapLeft+","+
+              ((double)unlaunched-averageMapLeft));
+      if(((double)unlaunched-averageMapLeft)>0){
           return false;
       }
-      LOG.info("shouldAssignDegradedTask()"+unlaunched);
       return true;
   }
   //Add by RH for DegradedFirst at Oct 17th end 
