@@ -165,7 +165,7 @@ class DegradedFirstTaskScheduler extends TaskScheduler {
           if (job.getStatus().getRunState() != JobStatus.RUNNING) {
             continue;
           }
-          // Added by RH at Oct 18th begin
+          // Added by RH on Oct 18th, 2013 begin
           // TODO: make a judgement whether we should allocate degraded task
           // for this job or not
           // We try to assign a degraded task first, but at most one degraded
@@ -174,7 +174,7 @@ class DegradedFirstTaskScheduler extends TaskScheduler {
           if(i == 0){ 
               assignDegradedTask=job.shouldAssignDegradedTask(taskTrackerStatus);
           }
-          // Added by RH at Oct 18th end
+          // Added by RH on Oct 18th, 2013 end
 
           Task t = null;
           
@@ -218,6 +218,7 @@ class DegradedFirstTaskScheduler extends TaskScheduler {
             }
 
             if(assignedDegraded==true){
+                // We do not assign multiple degraded/remote tasks at one heartbeat.
                 break scheduleMaps;
             }
             

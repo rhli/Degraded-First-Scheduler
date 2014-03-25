@@ -536,6 +536,7 @@ public class JobInProgress {
       for(String host: splitLocations) {
         Node node = jobtracker.resolveAndAddToTopology(host);
         LOG.info("tip:" + maps[i].getTIPId() + " has split on node:" + node);
+        // RH: rack is also treated as a node, be careful here.
         for (int j = 0; j < maxLevel; j++) {
           List<TaskInProgress> hostMaps = cache.get(node);
           if (hostMaps == null) {
