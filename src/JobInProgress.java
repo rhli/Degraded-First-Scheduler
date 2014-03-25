@@ -133,7 +133,12 @@ public class JobInProgress {
   // Counters on how many degraded tasks are assigned
   int launchedDegradedMapTasks = 0;
   int totalDegradedMapTasks = 0;
-  Map<String, List<Integer>> unlaunchedLocalTasks;
+  int nodeCount=0; 
+  int rackCount=0; 
+  // for rack-awareness
+  Map<Node,Double> _rackLastAssign;
+  // for locality-preservation
+  Collection<Node> _storageHosts;
   public synchronized int launchedDegradedMapTasks(){return launchedDegradedMapTasks;};
   public synchronized int totalDegradedMapTasks(){return totalDegradedMapTasks;};
   // Added by RH on Oct 18th end
@@ -519,9 +524,6 @@ public class JobInProgress {
                          TaskSplitMetaInfo[] splits, int maxLevel) {
     Map<Node, List<TaskInProgress>> cache = 
       new IdentityHashMap<Node, List<TaskInProgress>>(maxLevel);
-    // Added by RH at Oct 21th, 2013 begin
-    // unlaunchedLocalTasks = new HashMap<String,List<Integer>>();
-    // Added by RH at Oct 21th, 2013 end
     
     for (int i = 0; i < splits.length; i++) {
       String[] splitLocations = splits[i].getLocations();
@@ -539,6 +541,7 @@ public class JobInProgress {
         // RH: rack is also treated as a node, be careful here.
         for (int j = 0; j < maxLevel; j++) {
           List<TaskInProgress> hostMaps = cache.get(node);
+          LOG.info(" tip on layer" + str(j) + ", node " + node);
           if (hostMaps == null) {
             hostMaps = new ArrayList<TaskInProgress>();
             cache.put(node, hostMaps);
