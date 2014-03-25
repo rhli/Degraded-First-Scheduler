@@ -541,7 +541,7 @@ public class JobInProgress {
         // RH: rack is also treated as a node, be careful here.
         for (int j = 0; j < maxLevel; j++) {
           List<TaskInProgress> hostMaps = cache.get(node);
-          LOG.info(" tip on layer" + str(j) + ", node " + node);
+          LOG.info(" tip on layer" + j + ", node " + node);
           if (hostMaps == null) {
             hostMaps = new ArrayList<TaskInProgress>();
             cache.put(node, hostMaps);
