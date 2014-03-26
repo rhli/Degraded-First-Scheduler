@@ -561,6 +561,10 @@ public class JobInProgress {
     }
     // Added by RH at Oct 19th, 2013 begin
     LOG.info("totalDegradedMapTasks:"+totalDegradedMapTasks());
+    Collection<String> ttNames=jobtracker.getClusterStatus().getActiveTrackerNames();
+    for(String name: ttNames){
+        LOG.info(" ttNames: " + name);
+    }
     //Iterator it = cache.entrySet().iterator();
     //while(it.hasNext()){
     //    Map.Entry pairs = (Map.Entry)it.next();
