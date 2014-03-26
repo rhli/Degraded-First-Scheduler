@@ -10,3 +10,17 @@ that of normal tasks.
 
 We also provide locality preservation and rack awareness 
 heuristic to further improve the performances.
+
+To use:
+
+1. Download Hadoop (we recommend Hadoop-0.22.0), set $HADOOP_HOME
+2. Run ./install.sh
+3. Go to ${HADOOP_HOME}/conf/ and add the following in mapred-site.xml
+
+<property> 
+    <name>mapreduce.jobtracker.taskscheduler</name> 
+    <value>org.apache.hadoop.mapred.DegradedFirstTaskScheduler</value> 
+</property>
+
+Now you are good to go, have fun!
+
