@@ -136,7 +136,7 @@ public class JobInProgress {
   int totalDegradedMapTasks = 0;
   int _nodeCount=0; 
   int _rackCount=0; 
-  Long _averageRackLastAssign;
+  long _averageRackLastAssign;
   // for rack-awareness
   Map<Node,Long> _rackLastAssign;
   public synchronized int launchedDegradedMapTasks(){return launchedDegradedMapTasks;};
@@ -530,9 +530,11 @@ public class JobInProgress {
     _nodeCount=jobtracker.getClusterStatus().getTaskTrackers();
     _rackLastAssign=new HashMap<Node,Long>();
     try{
-        TaskTrackerInfo[] tTrackers=jobtracker.getActiveTrackers();
-        for(TaskTrackerInfo tInfo:tTrackers){
-            Node rackNode=jobtracker.getNode(tInfo.getTaskTrackerName()).getParent();
+        Collection<TaskTrackerStatus> tTrackers=jobtracker.getActiveTrackers();
+        Iterator it=tTrackers.iterator();
+        while(it.hasNext()){
+            TaskTrackerStatus ttStat=(TaskTrackerStatus)it.next();
+            Node rackNode=jobtracker.getNode(ttStat.getHost()).getParent();
             if(_rackLastAssign.get(rackNode)==null){
                 _rackLastAssign.put(rackNode,System.currentTimeMillis());
             }
@@ -1456,6 +1458,9 @@ public class JobInProgress {
     if (result != null) {
       addRunningTaskToTIP(maps[tip.getIdWithinJob()], result.getTaskID(), tts, true);
     }
+    // We choose a degraded task, now update the _averageRackLastAssign and
+    // _rackLastAssign
+    //long lastAssign = 
     return result;
   }
 
@@ -1491,6 +1496,19 @@ public class JobInProgress {
           return false;
       }
       // Rack Awareness
+      //if(_rackLastAssign==null){
+      //    return true;
+      //}else{
+      //  Node rack=node.getParent();
+      //  long lastAssign=_rackLastAssign.get(rack);
+      //  if(lastAssign<=_averageRackLastAssign){
+      //      return true;
+      //  }else if(currentTimeMillis-lastAssign>=5000){
+      //      return true;
+      //  }else{
+      //      return false;
+      //  }
+      //}
       return true;
   }
   //Add by RH for DegradedFirst at Oct 17th end 
