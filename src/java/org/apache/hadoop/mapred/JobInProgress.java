@@ -52,6 +52,7 @@ import org.apache.hadoop.mapreduce.JobCounter;
 import org.apache.hadoop.mapreduce.JobSubmissionFiles;
 import org.apache.hadoop.mapreduce.MRJobConfig;
 import org.apache.hadoop.mapreduce.TaskType;
+import org.apache.hadoop.mapreduce.TaskTrackInfo;
 import org.apache.hadoop.mapreduce.jobhistory.JobFinishedEvent;
 import org.apache.hadoop.mapreduce.jobhistory.JobHistory;
 import org.apache.hadoop.mapreduce.jobhistory.JobInfoChangeEvent;
@@ -525,7 +526,7 @@ public class JobInProgress {
     
     // the number of active nodes.
     _nodeCount=jobtracker.getClusterStatus().getTaskTrackers();
-    _rackLastAssign=new Map<Node,Long>();
+    _rackLastAssign=new LinkedHashMap<Node,Long>();
     TaskTrackerInfo[] tTrackers=jobtracker.getActiveTrackers();
     LOG.info("active tt size:"+tTrackers.size());
     for (int i = 0; i < splits.length; i++) {
