@@ -133,12 +133,10 @@ public class JobInProgress {
   // Counters on how many degraded tasks are assigned
   int launchedDegradedMapTasks = 0;
   int totalDegradedMapTasks = 0;
-  int nodeCount=0; 
-  int rackCount=0; 
+  int _nodeCount=0; 
+  int _rackCount=0; 
   // for rack-awareness
   Map<Node,Double> _rackLastAssign;
-  // for locality-preservation
-  Collection<Node> _storageHosts;
   public synchronized int launchedDegradedMapTasks(){return launchedDegradedMapTasks;};
   public synchronized int totalDegradedMapTasks(){return totalDegradedMapTasks;};
   // Added by RH on Oct 18th end
@@ -562,6 +560,10 @@ public class JobInProgress {
     // Added by RH at Oct 19th, 2013 begin
     LOG.info("totalDegradedMapTasks:"+totalDegradedMapTasks());
     Collection<String> ttNames=jobtracker.getClusterStatus().getActiveTrackerNames();
+    // number of active nodes (i.e., task trackers)
+    //_rackLastAssign=
+    _nodeCount=ttNames.size();
+    LOG.info("_nodeCount:"+totalDegradedMapTasks());
     for(String name: ttNames){
         LOG.info(" ttNames: " + name);
     }
