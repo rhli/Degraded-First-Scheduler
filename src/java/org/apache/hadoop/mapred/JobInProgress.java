@@ -1461,8 +1461,12 @@ public class JobInProgress {
       addRunningTaskToTIP(maps[tip.getIdWithinJob()], result.getTaskID(), tts, true);
     }
     // We choose a degraded task, now update the _averageRackLastAssign and
-    // _rackLastAssign
-    //long lastAssign = 
+    Node rack=jobtracker.getNode(tts.getHost()).getParent();
+    if(_rackLastAssign!=null){
+        long lastAssign = _rackLastAssign.get(rack); 
+        _averageRackLastAssign+=(System.currentTimeMillis()-lastAssign)/_rackCount;
+        _rackLastAssign.put(rack,System.currentTimeMillis());
+    }
     return result;
   }
 
@@ -1498,19 +1502,19 @@ public class JobInProgress {
           return false;
       }
       // Rack Awareness
-      //if(_rackLastAssign==null){
-      //    return true;
-      //}else{
-      //  Node rack=node.getParent();
-      //  long lastAssign=_rackLastAssign.get(rack);
-      //  if(lastAssign<=_averageRackLastAssign){
-      //      return true;
-      //  }else if(currentTimeMillis-lastAssign>=5000){
-      //      return true;
-      //  }else{
-      //      return false;
-      //  }
-      //}
+      if(_rackLastAssign==null){
+          return true;
+      }else{
+        Node rack=node.getParent();
+        long lastAssign=_rackLastAssign.get(rack);
+        if(lastAssign<=_averageRackLastAssign){
+            return true;
+        }else if(currentTimeMillis-lastAssign>=5000){
+            return true;
+        }else{
+            return false;
+        }
+      }
       return true;
   }
   //Add by RH for DegradedFirst at Oct 17th end 
