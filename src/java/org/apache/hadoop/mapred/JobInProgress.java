@@ -1493,12 +1493,13 @@ public class JobInProgress {
       Node node = jobtracker.getNode(taskTrackerHost);
       // Locality-Preservation
       double averageMapLeft=(double)(numMapTasks-totalDegradedMapTasks+launchedDegradedMapTasks
-              -runningMapTasks-finishedMapTasks)/
-          (nonRunningMapCache.size()-1);
+              -runningMapTasks-finishedMapTasks)/_nodeCount;
       int unlaunched = nonRunningMapCache.get(node).size();
-      LOG.info("shouldAssignDegradedTask()"+unlaunched+","+averageMapLeft+","+
-              ((double)unlaunched-averageMapLeft));
-      if(((double)unlaunched-averageMapLeft)>0){
+      //LOG.info("shouldAssignDegradedTask()"+unlaunched+","+averageMapLeft+","+((double)unlaunched-averageMapLeft));
+      /*
+       * TODO: change to map slot number
+       */
+      if(((double)unlaunched-averageMapLeft)>4){
           return false;
       }
       // Rack Awareness
