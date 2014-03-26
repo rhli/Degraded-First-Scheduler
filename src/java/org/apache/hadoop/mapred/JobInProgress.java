@@ -558,7 +558,8 @@ public class JobInProgress {
       }
     }
     // Added by RH at Oct 19th, 2013 begin
-    LOG.info("totalDegradedMapTasks:"+totalDegradedMapTasks());
+    LOG.info("totalDegradedMapTasks:"+totalDegradedMapTasks()+
+            "Node Count:"+jobtracker.getClusterStatus().getTaskTrackers());
     Collection<String> ttNames=jobtracker.getClusterStatus().getActiveTrackerNames();
     // number of active nodes (i.e., task trackers)
     //_rackLastAssign=new Map<Node,Integer>();
