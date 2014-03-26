@@ -1509,7 +1509,7 @@ public class JobInProgress {
         long lastAssign=_rackLastAssign.get(rack);
         if(lastAssign<=_averageRackLastAssign){
             return true;
-        }else if(currentTimeMillis-lastAssign>=5000){
+        }else if(System.currentTimeMillis()-lastAssign>=5000){
             return true;
         }else{
             return false;
