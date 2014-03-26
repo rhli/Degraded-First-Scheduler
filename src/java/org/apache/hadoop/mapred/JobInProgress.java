@@ -561,11 +561,15 @@ public class JobInProgress {
     LOG.info("totalDegradedMapTasks:"+totalDegradedMapTasks());
     Collection<String> ttNames=jobtracker.getClusterStatus().getActiveTrackerNames();
     // number of active nodes (i.e., task trackers)
-    //_rackLastAssign=
+    //_rackLastAssign=new Map<Node,Integer>();
     _nodeCount=ttNames.size();
-    LOG.info("_nodeCount:"+totalDegradedMapTasks());
+    LOG.info("_nodeCount:"+_nodeCount);
     for(String name: ttNames){
         LOG.info(" ttNames: " + name);
+        Node node = jobtracker.getNode(name).getParent();
+        //if(_rackLastAssign.get(node)==null){
+        //    ;
+        //}
     }
     //Iterator it = cache.entrySet().iterator();
     //while(it.hasNext()){
