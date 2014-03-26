@@ -534,6 +534,8 @@ public class JobInProgress {
         }
     }catch(IOException e){
         ;
+    }catch(InterruptedException e){
+        ;
     }
     for (int i = 0; i < splits.length; i++) {
       String[] splitLocations = splits[i].getLocations();
