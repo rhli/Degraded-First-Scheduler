@@ -136,7 +136,7 @@ public class JobInProgress {
   int _nodeCount=0; 
   int _rackCount=0; 
   // for rack-awareness
-  Map<Node,Double> _rackLastAssign;
+  Map<Node,Long> _rackLastAssign;
   public synchronized int launchedDegradedMapTasks(){return launchedDegradedMapTasks;};
   public synchronized int totalDegradedMapTasks(){return totalDegradedMapTasks;};
   // Added by RH on Oct 18th end
@@ -523,6 +523,11 @@ public class JobInProgress {
     Map<Node, List<TaskInProgress>> cache = 
       new IdentityHashMap<Node, List<TaskInProgress>>(maxLevel);
     
+    // the number of active nodes.
+    _nodeCount=jobtracker.getClusterStatus().getTaskTrackers();
+    _rackLastAssign=new Map<Node,Long>();
+    TaskTrackerInfo[] tTrackers=jobtracker.getActiveTrackers();
+    LOG.info("active tt size:"+tTrackers.size());
     for (int i = 0; i < splits.length; i++) {
       String[] splitLocations = splits[i].getLocations();
       if (splitLocations.length == 0) {
@@ -560,30 +565,6 @@ public class JobInProgress {
     // Added by RH at Oct 19th, 2013 begin
     LOG.info("totalDegradedMapTasks:"+totalDegradedMapTasks()+
             "Node Count:"+jobtracker.getClusterStatus().getTaskTrackers());
-    Collection<String> ttNames=jobtracker.getClusterStatus().getActiveTrackerNames();
-    // number of active nodes (i.e., task trackers)
-    //_rackLastAssign=new Map<Node,Integer>();
-    LOG.info(ttNames);
-    _nodeCount=ttNames.size();
-    LOG.info("_nodeCount:"+_nodeCount);
-    Iterator it=ttNames.iterator();
-    while(it.hasNext()){
-        String ttName = (String)it.next();
-        LOG.info(" taskTrackName" + ttName);
-    }
-    //for(String name: ttNames){
-    //    LOG.info(" ttNames: " + name);
-    //    Node node = jobtracker.getNode(name).getParent();
-    //    //if(_rackLastAssign.get(node)==null){
-    //    //    ;
-    //    //}
-    //}
-    //Iterator it = cache.entrySet().iterator();
-    //while(it.hasNext()){
-    //    Map.Entry pairs = (Map.Entry)it.next();
-    //    LOG.info(pairs.getKey());
-    //    it.remove();
-    //}
     // Added by RH at Oct 19th, 2013 end
     return cache;
   }
@@ -1454,6 +1435,8 @@ public class JobInProgress {
     return result;
   }
 
+  // We implement rack-awareness and locality-preservation in this function because
+  // in FIFO scheduling, global scale == per job scale
   public synchronized boolean shouldAssignDegradedTask(TaskTrackerStatus tts){
       if(totalDegradedMapTasks==0){ 
           return false;
@@ -1465,20 +1448,25 @@ public class JobInProgress {
       double degradedLaunchPercent=(double)launchedDegradedMapTasks/totalDegradedMapTasks;
       //LOG.info("totalLaunchPercent:"+totalLaunchPercent+",degradedLaunchPercent"+
       //        degradedLaunchPercent);
-      if(totalLaunchPercent<degradedLaunchPercent){
+      // The constant 1.2 to push degraded tasks to earlier stages, because they
+      // take longer to be complete.
+      if(totalLaunchPercent*1.2<degradedLaunchPercent){
           return false;
       }
+
+      String taskTrackerHost = tts.getHost();
+      Node node = jobtracker.getNode(taskTrackerHost);
+      // Locality-Preservation
       double averageMapLeft=(double)(numMapTasks-totalDegradedMapTasks+launchedDegradedMapTasks
               -runningMapTasks-finishedMapTasks)/
           (nonRunningMapCache.size()-1);
-      String taskTrackerHost = tts.getHost();
-      Node node = jobtracker.getNode(taskTrackerHost);
       int unlaunched = nonRunningMapCache.get(node).size();
       LOG.info("shouldAssignDegradedTask()"+unlaunched+","+averageMapLeft+","+
               ((double)unlaunched-averageMapLeft));
       if(((double)unlaunched-averageMapLeft)>0){
           return false;
       }
+      // Rack Awareness
       return true;
   }
   //Add by RH for DegradedFirst at Oct 17th end 
