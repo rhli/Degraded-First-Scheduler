@@ -526,7 +526,7 @@ public class JobInProgress {
     
     // the number of active nodes.
     _nodeCount=jobtracker.getClusterStatus().getTaskTrackers();
-    _rackLastAssign=new LinkedHashMap<Node,Long>();
+    _rackLastAssign=new HashMap<Node,Long>();
     TaskTrackerInfo[] tTrackers=jobtracker.getActiveTrackers();
     LOG.info("active tt size:"+tTrackers.size());
     for (int i = 0; i < splits.length; i++) {
