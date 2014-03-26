@@ -136,6 +136,7 @@ public class JobInProgress {
   int totalDegradedMapTasks = 0;
   int _nodeCount=0; 
   int _rackCount=0; 
+  long _averageRackLastAssign;
   // for rack-awareness
   Map<Node,Long> _rackLastAssign;
   public synchronized int launchedDegradedMapTasks(){return launchedDegradedMapTasks;};
@@ -525,18 +526,32 @@ public class JobInProgress {
       new IdentityHashMap<Node, List<TaskInProgress>>(maxLevel);
     
     // the number of active nodes.
+    // Added by RH start
     _nodeCount=jobtracker.getClusterStatus().getTaskTrackers();
     _rackLastAssign=new HashMap<Node,Long>();
     try{
         TaskTrackerInfo[] tTrackers=jobtracker.getActiveTrackers();
         for(TaskTrackerInfo tInfo:tTrackers){
-            LOG.info("taskTrackerName: "+tInfo.getTaskTrackerName());
+            Node rackNode=jobtracker.getNode(tInfo.getTaskTrackerName()).getParent();
+            if(_rackLastAssign.get(rackNode)==null){
+                _rackLastAssign.put(rackNode,Long(system.currentTimeMillis()));
+            }
         }
     }catch(IOException e){
         ;
     }catch(InterruptedException e){
         ;
     }
+    // get average rack assign time.
+    _rackCount=0;
+    iteration it=_rackLastAssign.entrySet().iterator();
+    while(it.hasNext()){
+        Map.Entry pair=(Map.Entry)it.next();
+        LOG.info(pair.getKey());
+        _averageRackLastAssign+=pair.getValue();
+        _rackCount++;
+    }
+    // Added by RH end
     for (int i = 0; i < splits.length; i++) {
       String[] splitLocations = splits[i].getLocations();
       if (splitLocations.length == 0) {
