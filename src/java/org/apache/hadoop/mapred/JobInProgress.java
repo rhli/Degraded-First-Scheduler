@@ -529,7 +529,7 @@ public class JobInProgress {
     // Added by RH start
     _nodeCount=jobtracker.getClusterStatus().getTaskTrackers();
     _rackLastAssign=new HashMap<Node,Long>();
-    try{
+    //try{
         Collection<TaskTrackerStatus> tTrackers=jobtracker.taskTrackers();
         Iterator it=tTrackers.iterator();
         while(it.hasNext()){
@@ -539,11 +539,12 @@ public class JobInProgress {
                 _rackLastAssign.put(rackNode,System.currentTimeMillis());
             }
         }
-    }catch(IOException e){
-        ;
-    }catch(InterruptedException e){
-        ;
-    }
+    
+    //}catch(IOException e){
+    //    ;
+    //}catch(InterruptedException e){
+    //    ;
+    //}
     // get average rack assign time.
     _rackCount=0;
     Iterator it=_rackLastAssign.entrySet().iterator();
