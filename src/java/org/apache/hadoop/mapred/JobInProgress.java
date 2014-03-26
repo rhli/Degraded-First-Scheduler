@@ -547,7 +547,8 @@ public class JobInProgress {
     //}
     // get average rack assign time.
     _rackCount=0;
-    Iterator it=_rackLastAssign.entrySet().iterator();
+    //Iterator it=_rackLastAssign.entrySet().iterator();
+    it=_rackLastAssign.entrySet().iterator();
     while(it.hasNext()){
         Map.Entry pair=(Map.Entry)it.next();
         LOG.info(pair.getKey());
