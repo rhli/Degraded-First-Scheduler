@@ -530,7 +530,7 @@ public class JobInProgress {
     _nodeCount=jobtracker.getClusterStatus().getTaskTrackers();
     _rackLastAssign=new HashMap<Node,Long>();
     try{
-        Collection<TaskTrackerStatus> tTrackers=jobtracker.getActiveTrackers();
+        Collection<TaskTrackerStatus> tTrackers=jobtracker.taskTrackers();
         Iterator it=tTrackers.iterator();
         while(it.hasNext()){
             TaskTrackerStatus ttStat=(TaskTrackerStatus)it.next();
