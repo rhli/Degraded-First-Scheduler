@@ -1515,7 +1515,7 @@ public class JobInProgress {
             return false;
         }
       }
-      return true;
+      //return true;
   }
   //Add by RH for DegradedFirst at Oct 17th end 
   
