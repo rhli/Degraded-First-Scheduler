@@ -2456,6 +2456,12 @@ public class JobInProgress {
 
       //modified by RH at Oct 20th, 2013 start
       ++ launchedDegradedMapTasks;
+        Node rack=jobtracker.getNode(tts.getHost()).getParent();
+        if(_rackLastAssign!=null){
+            long lastAssign = _rackLastAssign.get(rack); 
+            _averageRackLastAssign+=(System.currentTimeMillis()-lastAssign)/_rackCount;
+            _rackLastAssign.put(rack,System.currentTimeMillis());
+        }
       LOG.info("Choosing a Degraded task " + tip.getTIPId());
       //modified by RH at Oct 20th, 2013 end
       return tip.getIdWithinJob();
