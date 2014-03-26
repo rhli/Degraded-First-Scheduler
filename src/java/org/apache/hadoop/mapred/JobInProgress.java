@@ -548,9 +548,9 @@ public class JobInProgress {
     while(it.hasNext()){
         Map.Entry pair=(Map.Entry)it.next();
         LOG.info(pair.getKey());
-        _averageRackLastAssign+=pair.getValue();
         _rackCount++;
     }
+    _averageRackLastAssign=System.currentTimeMillis();
     // Added by RH end
     for (int i = 0; i < splits.length; i++) {
       String[] splitLocations = splits[i].getLocations();
