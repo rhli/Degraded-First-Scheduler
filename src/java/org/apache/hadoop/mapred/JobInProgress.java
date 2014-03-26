@@ -527,10 +527,12 @@ public class JobInProgress {
     // the number of active nodes.
     _nodeCount=jobtracker.getClusterStatus().getTaskTrackers();
     _rackLastAssign=new HashMap<Node,Long>();
-    TaskTrackerInfo[] tTrackers=jobtracker.getActiveTrackers();
-    for(TaskTrackerInfo tInfo:tTrackers){
-        LOG.info("taskTrackerName: "+tInfo.getTaskTrackerName());
-    }
+    try{
+        TaskTrackerInfo[] tTrackers=jobtracker.getActiveTrackers();
+        for(TaskTrackerInfo tInfo:tTrackers){
+            LOG.info("taskTrackerName: "+tInfo.getTaskTrackerName());
+        }
+    }throws IOException;
     for (int i = 0; i < splits.length; i++) {
       String[] splitLocations = splits[i].getLocations();
       if (splitLocations.length == 0) {
