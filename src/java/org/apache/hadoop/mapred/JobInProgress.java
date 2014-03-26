@@ -528,7 +528,9 @@ public class JobInProgress {
     _nodeCount=jobtracker.getClusterStatus().getTaskTrackers();
     _rackLastAssign=new HashMap<Node,Long>();
     TaskTrackerInfo[] tTrackers=jobtracker.getActiveTrackers();
-    LOG.info("active tt size:"+tTrackers.size());
+    for(TaskTrackInfo tInfo:tTrackers){
+        LOG.info("taskTrackerName: "+tInfo.getTaskTrackerName());
+    }
     for (int i = 0; i < splits.length; i++) {
       String[] splitLocations = splits[i].getLocations();
       if (splitLocations.length == 0) {
