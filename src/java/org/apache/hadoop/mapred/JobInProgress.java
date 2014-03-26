@@ -534,7 +534,7 @@ public class JobInProgress {
         for(TaskTrackerInfo tInfo:tTrackers){
             Node rackNode=jobtracker.getNode(tInfo.getTaskTrackerName()).getParent();
             if(_rackLastAssign.get(rackNode)==null){
-                _rackLastAssign.put(rackNode,Long(System.currentTimeMillis()));
+                _rackLastAssign.put(rackNode,System.currentTimeMillis());
             }
         }
     }catch(IOException e){
