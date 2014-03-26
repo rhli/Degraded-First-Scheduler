@@ -136,7 +136,7 @@ public class JobInProgress {
   int totalDegradedMapTasks = 0;
   int _nodeCount=0; 
   int _rackCount=0; 
-  long _averageRackLastAssign;
+  Long _averageRackLastAssign;
   // for rack-awareness
   Map<Node,Long> _rackLastAssign;
   public synchronized int launchedDegradedMapTasks(){return launchedDegradedMapTasks;};
@@ -534,7 +534,7 @@ public class JobInProgress {
         for(TaskTrackerInfo tInfo:tTrackers){
             Node rackNode=jobtracker.getNode(tInfo.getTaskTrackerName()).getParent();
             if(_rackLastAssign.get(rackNode)==null){
-                _rackLastAssign.put(rackNode,Long(system.currentTimeMillis()));
+                _rackLastAssign.put(rackNode,Long(System.currentTimeMillis()));
             }
         }
     }catch(IOException e){
@@ -548,7 +548,7 @@ public class JobInProgress {
     while(it.hasNext()){
         Map.Entry pair=(Map.Entry)it.next();
         LOG.info(pair.getKey());
-        _averageRackLastAssign+=pair.getValue().longValue();
+        _averageRackLastAssign+=pair.getValue();
         _rackCount++;
     }
     // Added by RH end
