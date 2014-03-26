@@ -1496,10 +1496,7 @@ public class JobInProgress {
               -runningMapTasks-finishedMapTasks)/_nodeCount;
       int unlaunched = nonRunningMapCache.get(node).size();
       //LOG.info("shouldAssignDegradedTask()"+unlaunched+","+averageMapLeft+","+((double)unlaunched-averageMapLeft));
-      /*
-       * TODO: change to map slot number
-       */
-      if(((double)unlaunched-averageMapLeft)>4){
+      if(((double)unlaunched-averageMapLeft)>tts.getMaxMapSlots()){
           return false;
       }
       // Rack Awareness
