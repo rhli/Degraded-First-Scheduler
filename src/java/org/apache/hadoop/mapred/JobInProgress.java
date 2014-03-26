@@ -532,7 +532,9 @@ public class JobInProgress {
         for(TaskTrackerInfo tInfo:tTrackers){
             LOG.info("taskTrackerName: "+tInfo.getTaskTrackerName());
         }
-    }throws IOException;
+    }catch(IOException e){
+        ;
+    }
     for (int i = 0; i < splits.length; i++) {
       String[] splitLocations = splits[i].getLocations();
       if (splitLocations.length == 0) {
