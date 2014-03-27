@@ -6,7 +6,7 @@ cp src/java/org/apache/hadoop/mapred/* ${HADOOP_HOME}/src/java/org/apache/hadoop
 
 echo "Going into mapreduce/ to compile"
 
-cd mapreduce
+cd ${HADOOP_HOME}/mapreduce
 ant
 cd -
 
