@@ -17,12 +17,12 @@ Installation and Configuration:
 0. Preparation: install java, c++ and ant. Set environment 
 variable $JAVA_HOME.
 
-1. Download [ Hadoop-0.22.0 ] (http://archive.apache.org/dist/hadoop/core/hadoop-0.22.0/hadoop-0.22.0.tar.gz). 
+1. Download [ Hadoop-0.22.0 ](http://archive.apache.org/dist/hadoop/core/hadoop-0.22.0/hadoop-0.22.0.tar.gz). 
 Setup your hadoop cluster. Set environment variable $HADOOP_HOME.
 
 2. Run ./install.sh
 
-3. Configure [ HDFS_RAID ] (http://wiki.apache.org/hadoop/HDFS-RAID). 
+3. Configure [ HDFS_RAID ](http://wiki.apache.org/hadoop/HDFS-RAID). 
 
 
 4. Choose DegradedFirst scheduler by going to ${HADOOP_HOME}/conf/ 
