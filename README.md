@@ -22,12 +22,11 @@ Setup your hadoop cluster. Set environment variable $HADOOP_HOME.
 
 2. Run ./install.sh
 
-3. Configure HDFS_RAID according to 
-http://wiki.apache.org/hadoop/HDFS-RAID. 
+3. Configure [ HDFS_RAID ] (http://wiki.apache.org/hadoop/HDFS-RAID). 
 
-Go to ${HADOOP_HOME}/conf/ and add the following lines in 
-mapred-site.xml
 
+4. Choose DegradedFirst scheduler by going to ${HADOOP_HOME}/conf/ 
+and add the following lines in mapred-site.xml
 ```
 <property> 
     <name>mapreduce.jobtracker.taskscheduler</name> 
