@@ -14,7 +14,7 @@ heuristic to further improve the performances.
 Installation and Configuration:
 ====
 
-0. Preparation: install java, c++ and ant. Set environment 
+0. Preparation: install java (openjdk-6-jdk) and ant. Set environment 
 variable $JAVA_HOME.
 
 1. Download [ Hadoop-0.22.0 ](http://archive.apache.org/dist/hadoop/core/hadoop-0.22.0/hadoop-0.22.0.tar.gz). 

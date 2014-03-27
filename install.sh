@@ -2,7 +2,7 @@
 
 ${HADOOP_HOME:?"Need to set hadoop home"}
 
-cp src/java/org/apache/hadoop/mapred/* ${HADOOP_HOME}/src/java/org/apache/hadoop/mapred/
+cp src/java/org/apache/hadoop/mapred/* ${HADOOP_HOME}/mapreduce/src/java/org/apache/hadoop/mapred/
 
 echo "Going into mapreduce/ to compile"
 
