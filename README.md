@@ -26,8 +26,11 @@ Go to ${HADOOP_HOME}/conf/ and add the following lines in
 mapred-site.xml
 
 <property> 
+
     <name>mapreduce.jobtracker.taskscheduler</name> 
+
     <value>org.apache.hadoop.mapred.DegradedFirstTaskScheduler</value> 
+
 </property>
 
 You are ready to go, have fun!
