@@ -10,5 +10,5 @@ cd mapreduce
 ant
 cd -
 
-echo "Successfully installed"
+echo "Successfully installed, you are good to go"
 
