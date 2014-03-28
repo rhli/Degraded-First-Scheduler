@@ -20,6 +20,20 @@ variable $JAVA_HOME.
 1. Download [ Hadoop-0.22.0 ](http://archive.apache.org/dist/hadoop/core/hadoop-0.22.0/hadoop-0.22.0.tar.gz). 
 Setup your hadoop cluster. Set environment variable $HADOOP_HOME.
 
+Note: Find the file $HADOOP_HOME/mapreduce/ivy/libraries.properties, and do the following modification.
+
+"
+hadoop-common.version=0.22.0-SNAPSHOT
+hadoop-hdfs.version=0.22.0-SNAPSHOT
+"
+
+=>
+
+"
+hadoop-common.version=0.22.0
+hadoop-hdfs.version=0.22.0
+"
+
 2. Run ./install.sh.
 
 3. Configure [ Hadoop ](http://hadoop.apache.org/docs/stable/cluster_setup.html) 
