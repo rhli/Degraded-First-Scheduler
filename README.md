@@ -47,46 +47,68 @@ finish most configurations.
     parityLength(m). (Where the property name of parity length dependent
     on your chosen code)
 >    <property>
->      <name>hdfs.raid.stripeLength</name>
->      <value>*your k*</value>
+>
+>    <name>hdfs.raid.stripeLength</name>
+>
+>    <value>*your k*</value>
+>
 >    </property>
+>
 >    <property>
->      <name>hdfs.raidjrs.paritylength</name>
->      <value>*your m for jrs code*</value>
+>
+>    <name>hdfs.raidjrs.paritylength</name>
+>
+>    <value>*your m for jrs code*</value>
+>
 >    </property>
+>
 >    <property>
->      <name>hdfs.raidia.paritylength</name>
->      <value>*your m for ia code*</value>
+>
+>    <name>hdfs.raidia.paritylength</name>
+>
+>    <value>*your m for ia code*</value>
+>
 >    </property>
     
 8.  In $HADOOP_HOME/conf/hdfs-site.xml, config the *block size* and *packet
     size*(strip size). *packet size* should be a multiple of *parity length*(m) and *block
     size* should be a multiple of *packet size*.
 >    <property>
->      <name>dfs.block.size</name>
->      <value>*your block size*</value>
+>
+>    <name>dfs.block.size</name>
+>
+>    <value>*your block size*</value>
+>
 >    </property>
+>
 >    <property>
->      <name>hdfs.raid.packet.size</name>
->      <value>*your packet size*</value>
+>
+>    <name>hdfs.raid.packet.size</name>
+>
+>    <value>*your packet size*</value>
+>
 >    </property>
 
 9.  In $HADOOP_HOME/conf/hdfs-site.xml, config the path of
     raid.xml (Normally it should be in $HADOOP_HOME/conf/raid.xml,
     better to use absolute path).
 >   <property>
->     <name>raid.config.file</name>
->     <value>*your raid.xml path(Absolute Path)*</value>
->     <description>This is needed by the RaidNode </description>
+>
+>   <name>raid.config.file</name>
+>
+>   <value>*your raid.xml path(Absolute Path)*</value>
+>
+>   <description>This is needed by the RaidNode </description>
+>
 >   </property>
 
 10.  In $HADOOP_HOME/conf/mapred-site.xml, configure the task
 scheduler.  Comment this to disable degraded-first.
 >   <property> 
 >
->       <name>mapreduce.jobtracker.taskscheduler</name> 
+>   <name>mapreduce.jobtracker.taskscheduler</name> 
 >
->       <value>org.apache.hadoop.mapred.DegradedFirstTaskScheduler</value> 
+>   <value>org.apache.hadoop.mapred.DegradedFirstTaskScheduler</value> 
 >
 >   </property>
 
