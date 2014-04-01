@@ -97,28 +97,22 @@ single node cluster.  Go to testProgram/ in this package.
 1. Untar tmp.tar.gz, you got a file with some randomly generated
 numbers, we use this as a wordcount input.  This file is a 5MB file,
 since our block size is 1MB, it will be stored in 5 block.  
-
 Add the following lines to ${HADOOP_HOME}/log4j.properties
-
->   log4j.logger.org.apache.hadoop.mapred.JobTracker=DEBUG
+>   log4j.logger.org.apache.hadoop.mapred.JobTracker=DEBUG  
 >   log4j.logger.org.apache.hadoop.mapred.JobInProgress=DEBUG
 
 
 2. Start your hadoop from all over again.
-
->   hadoop namenode -format
-
->   start-dfs.sh
-
->   hadoop dfs -copyFromLocal tmp tmp
+>   hadoop namenode -format  
+>   start-dfs.sh  
+>   hadoop dfs -copyFromLocal tmp tmp  
 
 3. Go to ${Your hadoop dir}/dfs/data/current/finalized.  Here you
 will see five block/metadata file pairs.  Remember one of them, we will
 delete the pair after they are encoded into erasure coded format.
 
 4. Start raidnode
-
->   start-raidnode.sh
+>   start-raidnode.sh  
 
 Wait until there is a log message "Map task executor complete" in the
 raidnode log. Now stop raidnode, we should not run it again, because
@@ -128,17 +122,13 @@ raidnode will recover lost blocks and interrupt our test program.
 the block/metadata file pair you remembered. 
 
 6. Let us help hadoop realize the file is corrupted by calling
-
->   hadoop dfs -copyToLocal tmp tmpOut
+>   hadoop dfs -copyToLocal tmp tmpOut  
 
 Hadoop will realize by itself, but this step can save us time.
 
 7. Now start mapreduce and let us run a wordcount program. 
-
 >   hadoop jar ${HADOOP_HOME}/hadoop-mapred-examples-0.22.0.jar wordcount tmp tmpOut.
-
 Use grep to find the lines in JobTracker log which contains word "Choosing".
-
 The log message tells you the orders blocks are choosen to process, recall that
 you have deleted a file, meaning that there is a degraded task, and according to
 the lines in the log message, this one is the first task to be launched. 
