@@ -34,32 +34,22 @@ finish most configurations.
     use absolute path) and
     fs.default.name.
 >    <property>
+>
 >      <name>hadoop.tmp.dir</name>
+>
 >      <value>*put your path here(absolute path)*</value>
+>
 >    </property>
+>
 >    <property>
+>
 >      <name>fs.default.name</name>
+>
 >      <value>hdfs://*your namenode hostname or ip*:54310</value>
+>
 >    </property>  
-
-
-7.  In $HADOOP_HOME/conf/hdfs-site.xml, config the stripeLength(k) and
-    parityLength(m). (Where the property name of parity length dependent
-    on your chosen code)
-    `<property>
-    <name>hdfs.raid.stripeLength</name>
-    <value>*your k*</value>
-    </property>
-    <property>
-    <name>hdfs.raidjrs.paritylength</name>
-    <value>*your m for jrs code*</value>
-    </property>
-    <property>
-    <name>hdfs.raidia.paritylength</name>
-    <value>*your m for ia code*</value>
-    </property>`
     
-8.  In $HADOOP_HOME/conf/hdfs-site.xml, config the *block size* and *packet
+7.  In $HADOOP_HOME/conf/hdfs-site.xml, config the *block size* and *packet
     size*(strip size). *packet size* should be a multiple of *parity length*(m) and *block
     size* should be a multiple of *packet size*.
 >    <property>
@@ -78,7 +68,7 @@ finish most configurations.
 >
 >    </property>
 
-9.  In $HADOOP_HOME/conf/hdfs-site.xml, config the path of
+8.  In $HADOOP_HOME/conf/hdfs-site.xml, config the path of
     raid.xml (Normally it should be in $HADOOP_HOME/conf/raid.xml,
     better to use absolute path).
 >   <property>
@@ -91,7 +81,7 @@ finish most configurations.
 >
 >   </property>
 
-10.  In $HADOOP_HOME/conf/mapred-site.xml, configure the task
+9.  In $HADOOP_HOME/conf/mapred-site.xml, configure the task
 scheduler.  Comment this to disable degraded-first.
 >   <property> 
 >
@@ -101,10 +91,10 @@ scheduler.  Comment this to disable degraded-first.
 >
 >   </property>
 
-11.  In $HADOOP_HOME/conf/raid.xml, config the source file path.
+10.  In $HADOOP_HOME/conf/raid.xml, config the source file path.
 >   <srcPath prefix="hdfs://*namenode hostname or ip*:*port*/*file path*">
 
-12.  In $HADOOP_HOME/conf/hadoop_env.sh, set the JAVA_HOME
+11.  In $HADOOP_HOME/conf/hadoop_env.sh, set the JAVA_HOME
 >   export JAVA_HOME=*your java home(Absolute Path)*
 >
 >   export HADOOP_OPTS=-Djava.net.preferIPv4Stack=true
