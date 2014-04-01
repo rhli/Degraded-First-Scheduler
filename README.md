@@ -113,25 +113,25 @@ delete the pair after they are encoded into erasure coded format.
 
 4. Start raidnode
 >   start-raidnode.sh  
-Wait until there is a log message "Map task executor complete" in the
-raidnode log. Now stop raidnode, we should not run it again, because
-raidnode will recover lost blocks and interrupt our test program.
 
-5. Go to ${Your hadoop dir}/dfs/data/current/finalized again and delete
+5. Wait until there is a log message "Map task executor complete" in the
+raidnode log. Now stop raidnode, we should not run it again, because
+raidnode will recover lost blocks and interrupt our test program.  
+Go to ${Your hadoop dir}/dfs/data/current/finalized again and delete
 the block/metadata file pair you remembered. 
 
 6. Let us help hadoop realize the file is corrupted by calling
 >   hadoop dfs -copyToLocal tmp tmpOut  
-Hadoop will realize by itself, but this step can save us time.
 
 7. Now start mapreduce and let us run a wordcount program. 
 >   hadoop jar ${HADOOP_HOME}/hadoop-mapred-examples-0.22.0.jar wordcount tmp tmpOut.  
-Use grep to find the lines in JobTracker log which contains word "Choosing".
+
+8. Use grep to find the lines in JobTracker log which contains word "Choosing".
 The log message tells you the orders blocks are choosen to process, recall that
 you have deleted a file, meaning that there is a degraded task, and according to
 the lines in the log message, this one is the first task to be launched. 
 
-8. If you are still curious, just repeat this from step 1, but disable degraded
+9. If you are still curious, just repeat this from step 1, but disable degraded
 first scheduler, the degraded task will be scheduled as the last task.
 
 
