@@ -46,29 +46,18 @@ finish most configurations.
 7.  In $HADOOP_HOME/conf/hdfs-site.xml, config the stripeLength(k) and
     parityLength(m). (Where the property name of parity length dependent
     on your chosen code)
->    <property>
->
->    <name>hdfs.raid.stripeLength</name>
->
->    <value>*your k*</value>
->
->    </property>
->
->    <property>
->
->    <name>hdfs.raidjrs.paritylength</name>
->
->    <value>*your m for jrs code*</value>
->
->    </property>
->
->    <property>
->
->    <name>hdfs.raidia.paritylength</name>
->
->    <value>*your m for ia code*</value>
->
->    </property>
+    `<property>
+    <name>hdfs.raid.stripeLength</name>
+    <value>*your k*</value>
+    </property>
+    <property>
+    <name>hdfs.raidjrs.paritylength</name>
+    <value>*your m for jrs code*</value>
+    </property>
+    <property>
+    <name>hdfs.raidia.paritylength</name>
+    <value>*your m for ia code*</value>
+    </property>`
     
 8.  In $HADOOP_HOME/conf/hdfs-site.xml, config the *block size* and *packet
     size*(strip size). *packet size* should be a multiple of *parity length*(m) and *block
