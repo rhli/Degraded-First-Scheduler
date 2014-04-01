@@ -33,67 +33,48 @@ finish most configurations.
     (where you want to put the hadoop file in your machine, better to
     use absolute path) and
     fs.default.name.
->    <property>
->
->      <name>hadoop.tmp.dir</name>
->
->      <value>*put your path here(absolute path)*</value>
->
->    </property>
->
->    <property>
->
->      <name>fs.default.name</name>
->
->      <value>hdfs://*your namenode hostname or ip*:54310</value>
->
->    </property>  
+    `<property>  
+      <name>hadoop.tmp.dir</name>  
+      <value>*put your path here(absolute path)*</value>  
+    </property>  
+    <property>  
+      <name>fs.default.name</name>  
+      <value>hdfs://*your namenode hostname or ip*:54310</value>  
+    </property>'  
     
 7.  In $HADOOP_HOME/conf/hdfs-site.xml, config the *block size* and *packet
     size*(strip size). *packet size* should be a multiple of *parity length*(m) and *block
     size* should be a multiple of *packet size*.
->    <property>
->
->    <name>dfs.block.size</name>
->
->    <value>*your block size*</value>
->
->    </property>
->
->    <property>
->
->    <name>hdfs.raid.packet.size</name>
->
->    <value>*your packet size*</value>
->
->    </property>
+>    <property>  
+>    <name>dfs.block.size</name>  
+>    <value>*your block size*</value>  
+>    </property>  
+>    <property>  
+>    <name>hdfs.raid.packet.size</name>  
+>    <value>*your packet size*</value>  
+>    </property>  
 
 8.  In $HADOOP_HOME/conf/hdfs-site.xml, config the path of
     raid.xml (Normally it should be in $HADOOP_HOME/conf/raid.xml,
     better to use absolute path).
->   <property>
->
->   <name>raid.config.file</name>
->
->   <value>*your raid.xml path(Absolute Path)*</value>
->
->   <description>This is needed by the RaidNode </description>
->
+>   <property>  
+>   <name>raid.config.file</name>  
+>   <value>*your raid.xml path(Absolute Path)*</value>  
+>   <description>This is needed by the RaidNode </description>  
 >   </property>
 
 9.  In $HADOOP_HOME/conf/mapred-site.xml, configure the task
 scheduler.  Comment this to disable degraded-first.
 >   <property>   
->   <name>mapreduce.jobtracker.taskscheduler</name>   
->   <value>org.apache.hadoop.mapred.DegradedFirstTaskScheduler</value>   
+>     <name>mapreduce.jobtracker.taskscheduler</name>   
+>     <value>org.apache.hadoop.mapred.DegradedFirstTaskScheduler</value>   
 >   </property>  
 
 10.  In $HADOOP_HOME/conf/raid.xml, config the source file path.
 >   <srcPath prefix="hdfs://*namenode hostname or ip*:*port*/*file path*">
 
 11.  In $HADOOP_HOME/conf/hadoop_env.sh, set the JAVA_HOME
->   export JAVA_HOME=*your java home(Absolute Path)*
->
+>   export JAVA_HOME=*your java home(Absolute Path)*  
 >   export HADOOP_OPTS=-Djava.net.preferIPv4Stack=true
 
 After finish the previous node installation and configuration, copy the
