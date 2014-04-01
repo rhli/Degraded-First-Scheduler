@@ -83,13 +83,10 @@ finish most configurations.
 
 9.  In $HADOOP_HOME/conf/mapred-site.xml, configure the task
 scheduler.  Comment this to disable degraded-first.
->   <property> 
->
->   <name>mapreduce.jobtracker.taskscheduler</name> 
->
->   <value>org.apache.hadoop.mapred.DegradedFirstTaskScheduler</value> 
->
->   </property>
+>   <property>   
+>   <name>mapreduce.jobtracker.taskscheduler</name>   
+>   <value>org.apache.hadoop.mapred.DegradedFirstTaskScheduler</value>   
+>   </property>  
 
 10.  In $HADOOP_HOME/conf/raid.xml, config the source file path.
 >   <srcPath prefix="hdfs://*namenode hostname or ip*:*port*/*file path*">
