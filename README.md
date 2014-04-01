@@ -88,10 +88,10 @@ finish most configurations.
 10.  In $HADOOP_HOME/conf/mapred-site.xml, configure the task
 scheduler.  Comment this to disable degraded-first.
 
->   <property> 
+>   `<property> 
 >       <name>mapreduce.jobtracker.taskscheduler</name> 
 >       <value>org.apache.hadoop.mapred.DegradedFirstTaskScheduler</value> 
->   </property>
+>   </property>`
 
 11.  In $HADOOP_HOME/conf/raid.xml, config the source file path.
 
@@ -99,8 +99,8 @@ scheduler.  Comment this to disable degraded-first.
 
 12.  In $HADOOP_HOME/conf/hadoop_env.sh, set the JAVA_HOME
 
->   export JAVA_HOME=*your java home(Absolute Path)*
->   export HADOOP_OPTS=-Djava.net.preferIPv4Stack=true
+>   `export JAVA_HOME=*your java home(Absolute Path)*`
+>   `export HADOOP_OPTS=-Djava.net.preferIPv4Stack=true`
 
 After finish the previous node installation and configuration, copy the
 $HADOOP_HOME folder and spread the folder into the *namenode* and *ALL*
