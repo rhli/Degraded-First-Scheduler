@@ -40,7 +40,7 @@ finish most configurations.
     <property>  
       <name>fs.default.name</name>  
       <value>hdfs://*your namenode hostname or ip*:54310</value>  
-    </property>'  
+    </property>`  
     
 7.  In $HADOOP_HOME/conf/hdfs-site.xml, config the *block size* and *packet
     size*(strip size). *packet size* should be a multiple of *parity length*(m) and *block
