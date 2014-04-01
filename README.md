@@ -33,14 +33,14 @@ finish most configurations.
     (where you want to put the hadoop file in your machine, better to
     use absolute path) and
     fs.default.name.
-    `<property>  
-      <name>hadoop.tmp.dir</name>  
-      <value>*put your path here(absolute path)*</value>  
-    </property>  
-    <property>  
-      <name>fs.default.name</name>  
-      <value>hdfs://*your namenode hostname or ip*:54310</value>  
-    </property>`  
+>   <property>  
+>     <name>hadoop.tmp.dir</name>  
+>     <value>*put your path here(absolute path)*</value>  
+>   </property>  
+>   <property>  
+>     <name>fs.default.name</name>  
+>     <value>hdfs://*your namenode hostname or ip*:54310</value>  
+>   </property>  
     
 7.  In $HADOOP_HOME/conf/hdfs-site.xml, config the *block size* and *packet
     size*(strip size). *packet size* should be a multiple of *parity length*(m) and *block
