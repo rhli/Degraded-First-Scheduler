@@ -1,7 +1,7 @@
-welcome
+Introduction
 =====
 
-This is the code package for degraded-first task scheduler. 
+This is the code package of degraded-first task scheduler. 
 This readme file will lead you through an example of how degraded-first
 works on a single-node cluster.
 This package is ONLY tested with Ubuntu 12.04. Have fun.
