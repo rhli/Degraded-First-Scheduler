@@ -21,7 +21,6 @@ source code into hadoop-0.22.0 and recompile it.
 
 3.  Run install.sh. This script integrates degraded first scheduler into hadoop-0.22.0 and help you
 finish most configurations.
-
 >    bash install.sh
 
 4.  In $HADOOP_HOME/conf/masters, enter the hostname or host ip of your namenode.
@@ -34,7 +33,6 @@ finish most configurations.
     (where you want to put the hadoop file in your machine, better to
     use absolute path) and
     fs.default.name.
-  
 >    <property>
 >      <name>hadoop.tmp.dir</name>
 >      <value>*put your path here(absolute path)*</value>
@@ -48,7 +46,6 @@ finish most configurations.
 7.  In $HADOOP_HOME/conf/hdfs-site.xml, config the stripeLength(k) and
     parityLength(m). (Where the property name of parity length dependent
     on your chosen code)
-    
 >    <property>
 >      <name>hdfs.raid.stripeLength</name>
 >      <value>*your k*</value>
@@ -65,7 +62,6 @@ finish most configurations.
 8.  In $HADOOP_HOME/conf/hdfs-site.xml, config the *block size* and *packet
     size*(strip size). *packet size* should be a multiple of *parity length*(m) and *block
     size* should be a multiple of *packet size*.
-  
 >    <property>
 >      <name>dfs.block.size</name>
 >      <value>*your block size*</value>
@@ -78,7 +74,6 @@ finish most configurations.
 9.  In $HADOOP_HOME/conf/hdfs-site.xml, config the path of
     raid.xml (Normally it should be in $HADOOP_HOME/conf/raid.xml,
     better to use absolute path).
-
 >   <property>
 >     <name>raid.config.file</name>
 >     <value>*your raid.xml path(Absolute Path)*</value>
@@ -87,20 +82,21 @@ finish most configurations.
 
 10.  In $HADOOP_HOME/conf/mapred-site.xml, configure the task
 scheduler.  Comment this to disable degraded-first.
-
->   `<property> 
+>   <property> 
+>
 >       <name>mapreduce.jobtracker.taskscheduler</name> 
+>
 >       <value>org.apache.hadoop.mapred.DegradedFirstTaskScheduler</value> 
->   </property>`
+>
+>   </property>
 
 11.  In $HADOOP_HOME/conf/raid.xml, config the source file path.
-
 >   <srcPath prefix="hdfs://*namenode hostname or ip*:*port*/*file path*">
 
 12.  In $HADOOP_HOME/conf/hadoop_env.sh, set the JAVA_HOME
-
->   `export JAVA_HOME=*your java home(Absolute Path)*`
->   `export HADOOP_OPTS=-Djava.net.preferIPv4Stack=true`
+>   export JAVA_HOME=*your java home(Absolute Path)*
+>
+>   export HADOOP_OPTS=-Djava.net.preferIPv4Stack=true
 
 After finish the previous node installation and configuration, copy the
 $HADOOP_HOME folder and spread the folder into the *namenode* and *ALL*
