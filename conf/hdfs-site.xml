@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+  <property>
+    <name>dfs.replication</name>
+    <value>1</value>
+  </property>
+  <property>
+    <name>raid.config.file</name>
+    <value>*location of raid.xml, absolute path*</value>
+    <description>This is needed by the RaidNode </description>
+  </property>
+  <property>
+    <name>fs.hdfs.impl</name>
+    <value>org.apache.hadoop.hdfs.DistributedRaidFileSystem</value>
+    <description>The FileSystem for hdfs: uris.</description>
+  </property>
+  <property>
+    <name>hdfs.raid.encoder.threadnum</name>
+	  <value>1</value>
+  </property>
+  <property>
+    <name>hdfs.raid.decoder.threadnum</name>
+		<value>1</value>
+  </property>
+	<property>
+		<name>dfs.safemode.threshold.pct</name>
+		<value>0</value>
+	</property>
+	<property>
+	  <name>raid.classname</name>
+	  <value>org.apache.hadoop.raid.DistRaidNode</value>
+  </property>
+  <property>
+    <name>hdfs.raidjrs.paritylength</name>
+    <value>1</value>
+  </property>
+  <property>
+    <name>hdfs.raidcg.paritylength</name>
+    <value>1</value>
+  </property>
+  <property>
+    <name>hdfs.raidpm.paritylength</name>
+    <value>1</value>
+  </property>
+  <property>
+    <name>hdfs.raidia.paritylength</name>
+    <value>1</value>
+  </property>
+  <property>
+    <name>hdfs.raid.stripeLength</name>
+    <value>5</value>
+  </property>
+  <property>
+    <name>dfs.block.size</name>
+    <value>1048576</value>
+  </property>
+  <property>
+    <name>hdfs.raid.packet.size</name>
+    <value>1048576</value>
+  </property>
+</configuration>
