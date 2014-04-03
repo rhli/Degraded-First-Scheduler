@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "check hadoop home"
+
 ${HADOOP_HOME:?"Need to set hadoop home"}
 
 cp src/java/org/apache/hadoop/mapred/* ${HADOOP_HOME}/mapreduce/src/java/org/apache/hadoop/mapred/
