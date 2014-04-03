@@ -97,7 +97,7 @@ single node cluster.  Go to testProgram/ in this package.
 1. Untar tmp.tar.gz, you got a file with some randomly generated
 numbers, we use this as a wordcount input.  This file is a 5MB file,
 since our block size is 1MB, it will be stored in 5 block.  
-Add the following lines to ${HADOOP_HOME}/log4j.properties
+Add the following lines to ${HADOOP_HOME}/conf/log4j.properties
 >   log4j.logger.org.apache.hadoop.mapred.JobTracker=DEBUG  
 >   log4j.logger.org.apache.hadoop.mapred.JobInProgress=DEBUG
 
