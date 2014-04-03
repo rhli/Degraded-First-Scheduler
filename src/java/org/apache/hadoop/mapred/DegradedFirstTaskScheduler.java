@@ -170,7 +170,7 @@ class DegradedFirstTaskScheduler extends TaskScheduler {
           // for this job or not
           // We try to assign a degraded task first, but at most one degraded
           // task per heartbeat
-          //boolean assignDegradedTask = false;
+          boolean assignDegradedTask = false;
           if(assignedDegraded==false){ 
               assignDegradedTask=job.shouldAssignDegradedTask(taskTrackerStatus);
           }
