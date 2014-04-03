@@ -143,6 +143,16 @@ inherited. Please refer to
 [hdfs](http://hadoop.apache.org/docs/stable/cluster_setup.html) and
 [hdfs-raid](http://wiki.apache.org/hadoop/HDFS-RAID).
 
+Developer's Guide
+=====
+
+The source code of degraded-first task scheduler is in 
+java/org/apache/hadoop/mapred/DegradedFirstTaskScheduler.java
+java/org/apache/hadoop/mapred/JobInProgress.java
+
+The other parts of the package contains bug fix in compilation and 
+performance optimization of HDFS-RAID. 
+
 Change Log
 =====
 
