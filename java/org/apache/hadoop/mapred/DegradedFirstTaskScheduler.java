@@ -171,15 +171,15 @@ class DegradedFirstTaskScheduler extends TaskScheduler {
           // We try to assign a degraded task first, but at most one degraded
           // task per heartbeat
           boolean assignDegradedTask = false;
-          if(i == 0){ 
+          if(assignedDegraded==false){ 
               assignDegradedTask=job.shouldAssignDegradedTask(taskTrackerStatus);
           }
-          // Added by RH on Oct 18th, 2013 end
 
           Task t = null;
           
           if(assignDegradedTask){
               // Try to schedule a degraded Map task
+              assignedDegraded=true;
               t=job.obtainNewDegradedMapTask(taskTrackerStatus, numTaskTrackers,
                                         taskTrackerManager.getNumberOfUniqueHosts());
               if (t != null) {
@@ -198,6 +198,7 @@ class DegradedFirstTaskScheduler extends TaskScheduler {
                   break;
               }
           }
+          // Added by RH on Oct 18th, 2013 end
           if(t==null){
             t = 
               job.obtainNewLocalMapTask(taskTrackerStatus, numTaskTrackers,
