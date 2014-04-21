@@ -28,7 +28,7 @@ you finish most configurations.
     (don't forget to remove the default one if you don't need it).
 
 6.  In $HADOOP_HOME/conf/core-site.xml, config the hadoop tmp directory
-    (where you want to put the hadoop file in your machine, use absolute path) 
+    (where Hadoop holds its data, use absolute path). 
     and fs.default.name.
 >   <property>  
 >   <name>hadoop.tmp.dir</name>  
