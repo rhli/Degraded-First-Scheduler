@@ -17,14 +17,14 @@ source code into hadoop-0.22.0 and recompile.
     [hadoop-0.22.0](http://archive.apache.org/dist/hadoop/core/hadoop-0.22.0/hadoop-0.22.0.tar.gz).
     Untar hadoop-0.22.0.tar.gz, mv to $HADOOP_HOME.
 
-3.  Run install.sh. This script integrates degraded first scheduler into hadoop-0.22.0 and help you
-finish most configurations.
+3.  Run install.sh. This script integrates degraded first scheduler into hadoop-0.22.0 and helps 
+you finish most configurations.
 >    bash install.sh
 
-4.  In $HADOOP_HOME/conf/masters, enter the hostname or host ip of your namenode
+4.  In $HADOOP_HOME/conf/masters, enter the hostname or host IP of your namenode
     (don't forget to remove the default one if you don't need it).
 
-5.  In $HADOOP_HOME/conf/slaves, enter the hostname or host ip of your datanode
+5.  In $HADOOP_HOME/conf/slaves, enter the hostname or host IP of your datanode
     (don't forget to remove the default one if you don't need it).
 
 6.  In $HADOOP_HOME/conf/core-site.xml, config the hadoop tmp directory
@@ -36,12 +36,11 @@ finish most configurations.
 >   </property>  
 >   <property>  
 >   <name>fs.default.name</name>  
->   <value>hdfs://*your namenode hostname or ip*:54310</value>  
+>   <value>hdfs://*your namenode hostname or IP*:54310</value>  
 >   </property>  
     
-7.  In $HADOOP_HOME/conf/hdfs-site.xml, config the *block size* and *packet
-    size*(strip size). *packet size* should be a multiple of *parity length*(m) and *block
-    size* should be a multiple of *packet size*.
+7.  In $HADOOP_HOME/conf/hdfs-site.xml, configure the *block size* and *packet
+    size(strip size)*, *block size* should be a multiple of *packet size*.
 >    <property>  
 >    <name>dfs.block.size</name>  
 >    <value>*your block size*</value>  
@@ -51,7 +50,7 @@ finish most configurations.
 >    <value>*your packet size*</value>  
 >    </property>  
 
-8.  In $HADOOP_HOME/conf/hdfs-site.xml, config the path of raid.xml.
+8.  In $HADOOP_HOME/conf/hdfs-site.xml, configure the path of raid.xml.
 >   <property>  
 >   <name>raid.config.file</name>  
 >   <value>*your raid.xml path(Absolute Path)*</value>  
@@ -65,8 +64,8 @@ Comment this if you want to disable degraded-first task scheduler.
 >   <value>org.apache.hadoop.mapred.DegradedFirstTaskScheduler</value>   
 >   </property>  
 
-10.  In $HADOOP_HOME/conf/raid.xml, config the source file path.
->   <srcPath prefix="hdfs://*namenode hostname or ip*:*port*/*file path*">
+10.  In $HADOOP_HOME/conf/raid.xml, configure the source file path.
+>   <srcPath prefix="hdfs://*namenode hostname or IP*:*port*/*file path*">
 
 11.  In $HADOOP_HOME/conf/hadoop_env.sh, set the JAVA_HOME
 >   export JAVA_HOME=*your java home(Absolute Path)*  
