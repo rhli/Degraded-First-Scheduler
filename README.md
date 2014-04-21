@@ -2,44 +2,41 @@ Introduction
 =====
 
 This is the code package of degraded-first task scheduler. 
-This readme file will lead you through an example of how degraded-first
-works on a single-node cluster.
 This package is ONLY tested with Ubuntu 12.04. Have fun.
 
 Install
 =====
 
-This package relies on hadoop-0.22.0 and HDFS-RAID, in order to install, we embed 
-source code into hadoop-0.22.0 and recompile it. 
+This package relies on hadoop-0.22.0 and HDFS-RAID. To install, we embed 
+source code into hadoop-0.22.0 and recompile. 
 
-1.  install g++, ant, java, set up $HADOOP_HOME(where you will place
+1.  Install g++, ant, java, set up $HADOOP_HOME(where you will place
     your hadoop), $JAVA_HOME(where is the sdk).
 
-2.  download
+2.  Download
     [hadoop-0.22.0](http://archive.apache.org/dist/hadoop/core/hadoop-0.22.0/hadoop-0.22.0.tar.gz).
-    Untar hadoop-0.22.0.tar.gz, mv to $HADOOP_HOME
+    Untar hadoop-0.22.0.tar.gz, mv to $HADOOP_HOME.
 
 3.  Run install.sh. This script integrates degraded first scheduler into hadoop-0.22.0 and help you
 finish most configurations.
 >    bash install.sh
 
-4.  In $HADOOP_HOME/conf/masters, enter the hostname or host ip of your namenode.
-    (don't forget to remove the default one if you don't need it)
+4.  In $HADOOP_HOME/conf/masters, enter the hostname or host ip of your namenode
+    (don't forget to remove the default one if you don't need it).
 
-5.  In $HADOOP_HOME/conf/slaves, enter the hostname or host ip of your datanode.
-    (don't forget to remove the default one if you don't need it)
+5.  In $HADOOP_HOME/conf/slaves, enter the hostname or host ip of your datanode
+    (don't forget to remove the default one if you don't need it).
 
 6.  In $HADOOP_HOME/conf/core-site.xml, config the hadoop tmp directory
-    (where you want to put the hadoop file in your machine, better to
-    use absolute path) and
-    fs.default.name.
+    (where you want to put the hadoop file in your machine, use absolute path) 
+    and fs.default.name.
 >   <property>  
->     <name>hadoop.tmp.dir</name>  
->     <value>*put your path here(absolute path)*</value>  
+>   <name>hadoop.tmp.dir</name>  
+>   <value>*put your path here(absolute path)*</value>  
 >   </property>  
 >   <property>  
->     <name>fs.default.name</name>  
->     <value>hdfs://*your namenode hostname or ip*:54310</value>  
+>   <name>fs.default.name</name>  
+>   <value>hdfs://*your namenode hostname or ip*:54310</value>  
 >   </property>  
     
 7.  In $HADOOP_HOME/conf/hdfs-site.xml, config the *block size* and *packet
@@ -54,20 +51,18 @@ finish most configurations.
 >    <value>*your packet size*</value>  
 >    </property>  
 
-8.  In $HADOOP_HOME/conf/hdfs-site.xml, config the path of
-    raid.xml (Normally it should be in $HADOOP_HOME/conf/raid.xml,
-    better to use absolute path).
+8.  In $HADOOP_HOME/conf/hdfs-site.xml, config the path of raid.xml.
 >   <property>  
 >   <name>raid.config.file</name>  
 >   <value>*your raid.xml path(Absolute Path)*</value>  
 >   <description>This is needed by the RaidNode </description>  
 >   </property>
 
-9.  In $HADOOP_HOME/conf/mapred-site.xml, configure the task
-scheduler.  Comment this to disable degraded-first.
+9.  In $HADOOP_HOME/conf/mapred-site.xml, configure task scheduler.  
+Comment this if you want to disable degraded-first task scheduler.
 >   <property>   
->     <name>mapreduce.jobtracker.taskscheduler</name>   
->     <value>org.apache.hadoop.mapred.DegradedFirstTaskScheduler</value>   
+>   <name>mapreduce.jobtracker.taskscheduler</name>   
+>   <value>org.apache.hadoop.mapred.DegradedFirstTaskScheduler</value>   
 >   </property>  
 
 10.  In $HADOOP_HOME/conf/raid.xml, config the source file path.
@@ -77,13 +72,12 @@ scheduler.  Comment this to disable degraded-first.
 >   export JAVA_HOME=*your java home(Absolute Path)*  
 >   export HADOOP_OPTS=-Djava.net.preferIPv4Stack=true
 
-After finish the previous node installation and configuration, copy the
-$HADOOP_HOME folder and spread the folder into the *namenode* and *ALL*
-*datanodes*. Make sure each nodes can be public key accessible by each
-other. Also make sure that c++, java, ant and $HADOOP_HOME are well set
-for ALL nodes. If you have serveral different type of nodes (for
-example, different OS), you may need to repeat the previous steps in
-different types of nodes.
+After finishing the above installation and configuration, copy $HADOOP_HOME 
+directory to *namenode* and *EVERY* *datanode*. Make sure each node is 
+accessible by each other. Also make sure that c++, java, ant and $HADOOP_HOME 
+are well set on *ALL* nodes. If you have several different types of nodes (for
+example, different operating systems), you need to repeat the previous steps 
+in every type of nodes.
 
 Add $HADOOP_HOME/bin to PATH
 
@@ -91,18 +85,19 @@ Add $HADOOP_HOME/bin to PATH
 
 Test Program
 =====
-This part I will walk your through a test program.  We work on a 
-single node cluster.  Go to testProgram/ in this package.
+This part walks you through an example test program.  The example works 
+in a cluster of local mode, you can easily extend the example to a fully distributed
+clustered.  First go to testProgram/ in this package.
 
 1. Untar tmp.tar.gz, you got a file with some randomly generated
 numbers, we use this as a wordcount input.  This file is a 5MB file,
-since our block size is 1MB, it will be stored in 5 block.  
+since we set block size to 1MB, it will be stored in 5 blocks.  
 Add the following lines to ${HADOOP_HOME}/conf/log4j.properties
 >   log4j.logger.org.apache.hadoop.mapred.JobTracker=DEBUG  
 >   log4j.logger.org.apache.hadoop.mapred.JobInProgress=DEBUG
 
 
-2. Start your hadoop from all over again.
+2. Start your hadoop from all over again and copy the tmp file into HDFS.
 >   hadoop namenode -format  
 >   start-dfs.sh  
 >   hadoop dfs -copyFromLocal tmp tmp  
@@ -128,8 +123,8 @@ the block/metadata file pair you remembered.
 
 8. Use grep to find the lines in JobTracker log which contains word "Choosing".
 The log message tells you the orders blocks are choosen to process, recall that
-you have deleted a file, meaning that there is a degraded task, and according to
-the lines in the log message, this one is the first task to be launched. 
+you have deleted a block, meaning that there is a degraded task, and according to
+the lines in the log message, the degraded task is the first one to be launched. 
 
 9. If you are still curious, just repeat this from step 1, but disable degraded
 first scheduler, the degraded task will be scheduled as the last task.
