@@ -145,7 +145,7 @@ java/org/apache/hadoop/mapred/DegradedFirstTaskScheduler.java
 java/org/apache/hadoop/mapred/JobInProgress.java
 
 The other parts of the package contains bug fix in compilation and 
-performance optimization of HDFS-RAID. 
+performance optimization of HDFS-RAID.  
 
 Change Log
 =====
